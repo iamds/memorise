@@ -20,11 +20,8 @@
 </head>
 
 <body>
-    <div class="center-screen" style="margin-left: 5%; margin-right: 5%">
-        <div id="main" style="width: 100%">
 
-        </div>
-    </div>
+    <div id="main">
     <script type="text/babel">
 	const text = "Today we hope we have shown you some of its magic! Thank you so much for coming!";
 	const opacityDelta = 0.4;
@@ -41,7 +38,12 @@
 				}
 				return newState;
 			});
-		return <h1><div onClick={removeSomeLetters}>{text.split("").map((char, index)=><span style={{ opacity: opacity[index]===undefined?1:opacity[index]}}>{char}</span>)}</div></h1>
+		return <div className="center-screen" style={{marginLeft: "5%", marginRight: "5%"}} onClick={removeSomeLetters}>
+        <div id="main" style={{width: "100%"}}>
+		<h1><div>{text.split("").map((char, index)=><span style={{ opacity: opacity[index]===undefined?1:opacity[index]}}>{char}</span>)}</div></h1>
+        </div>
+    </div>
+
 	}
 
         ReactDOM.render(<App />, document.getElementById('main'));
