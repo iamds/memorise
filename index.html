@@ -27,22 +27,21 @@
     </div>
     <script type="text/babel">
 	const text = "Today we hope we have shown you some of its magic! Thank you so much for coming!";
+	const opacityDelta = 0.4;
 	function App(props) {
-		const [removedLetters, setRemovedLetters] = React.useState([]);
-		const removeSomeLetters = () => setRemovedLetters(oldState=>{
-			const newState = [...oldState];
-				var removedLast = false;
+		const [opacity, setOpacity] = React.useState([]);
+		const removeSomeLetters = () => setOpacity(oldState=>{
+				const newState = [];
 				for (var i = 0; i < text.length; i++) {
-					if (!removedLast && !newState[i] && Math.random() > 0.90) {
-						newState[i] = true;
-						removedLast = true;
-					} else {
-						removedLast = false;
+					newState[i] = oldState[i] === undefined ? 1 : oldState[i];
+
+					if (Math.random() > 0.80) {
+						newState[i] = Math.max(0, newState[i]-opacityDelta);
 					}
 				}
 				return newState;
 			});
-		return <h1><div onClick={removeSomeLetters}>{text.split("").map((char, index)=><span style={{ visibility: removedLetters[index]?"hidden":""}}>{char}</span>)}</div></h1>
+		return <h1><div onClick={removeSomeLetters}>{text.split("").map((char, index)=><span style={{ opacity: opacity[index]===undefined?1:opacity[index]}}>{char}</span>)}</div></h1>
 	}
 
         ReactDOM.render(<App />, document.getElementById('main'));
